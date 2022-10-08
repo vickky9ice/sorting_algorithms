@@ -28,7 +28,7 @@ A Sorting Algorithm is used to rearrange a given array or list elements accordin
 ## Requirements :shipit:
 
 * Ubuntu 14.04 LTS
-* MacOs
+* MacOs/Windows OS
 * General
 * Allowed editors: vi, vim, emacs
 * All your files will be compiled on Ubuntu 14.04 LTS
