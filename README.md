@@ -69,4 +69,4 @@ $ used gcc -Wall -Wextra -Werror -pedantic (file)-main.c..
 
 ## Author :octocat:
 
-[Esteban De La Hoz](https://www.linkedin.com/in/esteban-de-la-hoz-romero-b6270017b/) | [Twitter](https://twitter.com/Esteban18911) | [GitHub](https://github.com/Esteban18911)
+[Adeboye Victor Oyekanmi]
