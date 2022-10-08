@@ -57,16 +57,16 @@ Write a function that sorts an array of integers in ascending order using the Qu
 In your terminal, git clone the directory with the following command:
 
 ```sh
-git clone https://github.com/Esteban1891/[Github project directory]
+git clone https://github.com/vickky9ice/[Github project directory]
 ```
 
 
 ```sh
-$ git clone https://github.com/Esteban1891/sorting_algorithms.git
+$ git clone https://github.com/vickky9ice/sorting_algorithms.git
 $ cd sorting algorithms
 $ used gcc -Wall -Wextra -Werror -pedantic (file)-main.c..
 ```
 
 ## Author :octocat:
 
-[Adeboye Victor Oyekanmi]
+Adeboye Victor Oyekanmi
