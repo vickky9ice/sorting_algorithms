@@ -1,60 +1,91 @@
 #include "sort.h"
-
 /**
- * swapme - swap the nodes themselves.
- * @current: pointer.
- * @current_old: pointer.
- * @list: doubly linked list
+ * swap1 - swaps nodes from left to right
+ * @list: pointer to list
+ * @head: pointer to head node
+ * @aux: auxiliar pointer
+ * Return: no return
  */
-void swapme(listint_t *current, listint_t *current_old, listint_t **list)
+void swap1(listint_t **list, listint_t *head, listint_t *aux)
 {
-	listint_t *temp1 = current->next;
-	listint_t *temp2 = current_old->prev;
+	if (head->prev)
+		head->prev->next = aux;
+	else
+		*list = aux;
+	if (aux->next)
+		aux->next->prev = head;
+	head->next = aux->next;
+	aux->prev = head->prev;
+	aux->next = head;
+	head->prev = aux;
+	print_list(*list);
 
-	if (temp1 != NULL)
-		temp1->prev = current_old;
-	if (temp2 != NULL)
-		temp2->next = current;
-	current->prev = temp2;
-	current_old->next = temp1;
-	current->next = current_old;
-	current_old->prev = current;
-	if (*list == current_old)
-		*list = current;
+}
+/**
+ * swap2 - swaps nodes from right to left
+ * @list: pointer to list
+ * @head: pointer to head node
+ * @aux: auxiliar pointer
+ * Return: no return
+ */
+void swap2(listint_t **list, listint_t *head, listint_t *aux)
+{
+	aux = head->prev;
+	aux->next->prev = aux->prev;
+	if (aux->prev)
+		aux->prev->next = aux->next;
+	else
+		*list = aux->next;
+	aux->prev = aux->next;
+	aux->next = aux->next->next;
+	aux->prev->next = aux;
+	if (aux->next)
+		aux->next->prev = aux;
 	print_list(*list);
 }
 
 /**
- * cocktail_sort_list - cocktail_sort_list
- *
- * @list: doubly linked list
- */
+ * cocktail_sort_list - sorts a doubly linked list of integers
+ * in ascending order using the Cocktail sort ailgorithm
+ * @list: pointer to the list head
+ * Return: no return
+ **/
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *check = *list, *first = NULL, *last = NULL;
+	listint_t *head, *aux;
+	int flag = 1;
 
-	if (!list)
-		return;
-	if (!(*list))
-		return;
-	if (!(*list)->next)
-		return;
-	do {
-		while (check->next)
+	if (list)
+	{
+		head = *list;
+		while (flag != 0)
 		{
-			if (check->n > check->next->n)
-				swapme(check->next, check, list);
-			else
-				check = check->next;
+			flag = 0;
+			while (head->next)
+			{
+				if (head->n > head->next->n)
+				{
+					aux = head->next;
+					swap1(list, head, aux);
+					flag = 1;
+				}
+				else
+					head = head->next;
+			}
+			if (flag == 0)
+				break;
+			flag = 0;
+			while (head->prev)
+			{
+				if (head->prev->n > head->n)
+				{
+					swap2(list, head, aux);
+					flag = 1;
+				}
+				else
+					head = head->prev;
+			}
+
 		}
-		last = check;
-		while (check->prev != first)
-		{
-			if (check->n < check->prev->n)
-				swapme(check, check->prev, list);
-			else
-				check = check->prev;
-		}
-		first = check;
-	} while (first != last);
+	}
 }
