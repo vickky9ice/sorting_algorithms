@@ -1,68 +1,69 @@
 #include "sort.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * partition_h - array partition
- * @array: array to sort
- * @first: first position
- * @last: last position
- * @size: array size
- * Return: int pivot index
+ * quick_sort - sorts an array of integers in ascending order.
+ * @array: the array to be sorted.
+ * @size: the size of the array.
  */
-int partition_h(int *array, int first, int last, size_t size)
+void quick_sort_hoare(int *array, size_t size)
 {
-	int pivot = array[last], i = first - 1, j = last + 1, aux;
+	quick_sort_extra_hoare(array, 0, (int)size - 1, size);
+}
 
+/**
+ * quick_sort_extra - sorts an array of integers in asceding order.
+ * @array: the array to be sorted.
+ * @lo: the beginning of the array
+ * @hi: the end of the array
+ * @size: the size of the original array
+ */
+void quick_sort_extra_hoare(int *array, int lo, int hi, size_t size)
+{
+	int pivot;
+
+	if (lo < hi)
+	{
+		pivot = partition_hoare(array, lo, hi, size);
+		quick_sort_extra_hoare(array, lo, pivot, size);
+		quick_sort_extra_hoare(array, pivot + 1, hi, size);
+	}
+}
+
+/**
+ * partition - partitions an array of integers in asceding order.
+ * @array: the array to be sorted.
+ * @lo: the beginning of the array
+ * @hi: the end of the array
+ * @size: the size of the original array
+ * Return: the index of the last swap
+ */
+int partition_hoare(int *array, int lo, int hi, size_t size)
+{
+	int pivot = array[hi];
+	int temp;
+	int i = lo - 1;
+	int j = hi + 1;
+	
 	while (1)
 	{
 		do {
 			i++;
 		} while (array[i] < pivot);
-
 		do {
 			j--;
 		} while (array[j] > pivot);
-
-		if (j < i)
-			return (j);
-		if (array[i] > array[j])
+		if (i >= j)
 		{
-			aux = array[i];
-			array[i] = array[j];
-			array[j] = aux;
+			return (j);
+		}
+		else
+		{		
+			temp = array[j];
+			array[j] = array[i];
+			array[i] = temp;
 			print_array(array, size);
 		}
 	}
-}
-
-/**
- * qsh - sorts an array of integers recursively
- * @array: array to sort
- * @first: first position
- * @last: last position
- * @size: array size
- */
-void qsh(int *array, int first, int last, size_t size)
-{
-	int pivot;
-
-	if (first < last)
-	{
-		pivot = partition_h(array, first, last, size);
-		qsh(array, first, pivot, size);
-		qsh(array, pivot + 1, last, size);
-	}
-}
-
-/**
- * quick_sort_hoare - sorts an array of integers using the Quick
- * sort hoare algorithm  in ascending order
- * @array: array to sort
- * @size: array size
- */
-void quick_sort_hoare(int *array, size_t size)
-{
-	if (!array || size < 2)
-		return;
-
-	qsh(array, 0, size - 1, size);
 }
