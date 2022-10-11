@@ -1,4 +1,12 @@
 #include "sort.h"
+
+/**
+ * bitsonic_sort - sorts an array of integers in 
+ * ascending order using the 
+ * Bitonic sort algorithm.
+ * @array: pointer to array
+ * @size: size of the array
+ */
 void compare_swap_down(int *array_init, int *array, size_t size_init, size_t size, int *flag)
 {
 	int n;
